@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Here are all the Posts!</h1>
+
+<div th:each="post : ${all}">
+    <h2 th:text="${post.title}"></h2>
+    <h3 th:text="${post.body}"></h3>
+</div>
+
+</body>
+</html>

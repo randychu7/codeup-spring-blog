@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Individual Post</h1>
+
+<div th:each="posts : ${post}" th:if="${posts.id == n}">
+<h2><span th:text="${posts.title}"></span></h2>
+<p><span th:text="${posts.body}"></span></p>
+</div>
+
+</body>
+</html>

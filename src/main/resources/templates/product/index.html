@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+<h1>These are the items</h1>
+<div th:each="product:${products}" th:if="${product.priceInCents < 20000}">
+    <h3><span th:text="${product.name}"></span> </h3>
+    <h3> Cost in Cents: <span th:text="${product.priceInCents}"></span></h3>
+</div>
+
+</body>
+</html>
