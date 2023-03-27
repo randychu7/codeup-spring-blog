@@ -42,7 +42,6 @@ public class HelloController {
     @GetMapping("/howdy")
         public String returnHello(Model model){
          model.addAttribute("name","Randy");
-         model.addAttribute("name","John");
          model.addAttribute("cars", cars);
         return "hello";
         }

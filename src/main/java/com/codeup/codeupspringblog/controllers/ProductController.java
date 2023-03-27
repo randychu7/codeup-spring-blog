@@ -14,12 +14,11 @@ public class ProductController {
     }
 
     @PostMapping("/products/create")
-    public String insertProduct(@RequestParam String name, @RequestParam int price){
-
-        System.out.println(name);
+    public String insertProduct(@RequestParam String product, @RequestParam int price){
         System.out.println(price);
         return "redirect:/";
     }
+
 
 }
 
