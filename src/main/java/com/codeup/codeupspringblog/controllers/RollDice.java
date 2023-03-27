@@ -14,6 +14,7 @@ public class RollDice {
     }
 
 
+
     @GetMapping("/roll-dice/{guess}")
     public String rollDiceForm(@PathVariable int guess, Model model) {
         int roll = (int) (Math.random() * 6) + 1;
