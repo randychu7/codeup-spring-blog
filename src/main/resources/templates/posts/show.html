@@ -5,9 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-
+<nav th:replace="partials :: navbar"></nav>
 <h1>Individual Post</h1>
-
 <div th:each="posts : ${post}" th:if="${posts.id == n}">
 <h2><span th:text="${posts.title}"></span></h2>
 <p><span th:text="${posts.body}"></span></p>
