@@ -1,6 +1,7 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.controllers.model.Product;
+import com.codeup.codeupspringblog.repositories.ProductsRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,15 @@ import java.util.List;
 
 @Controller
 public class ProductController {
+
+    private ProductsRepository productsDao;
+
+    public ProductController(ProductsRepository productsDao){
+        this.productsDao = productsDao;
+    }
+
     @GetMapping("/products/create")
-    public String products(Model model){
+    public String products(){
         return "product/createProduct";
     }
 
@@ -24,16 +32,18 @@ public class ProductController {
         return "redirect:/";
     }
 
+
+
+
+
     @GetMapping("/product")
     public String getProductView(Model model){
-        List<Product> products = new ArrayList<>(Arrays.asList(
-                new Product(1,"Xbox",10000),
-                new Product(2,"PS5",20000),
-                new Product(3,"CDI",50000)
-        ));
+        List<Product> products = productsDao.findAll();
         model.addAttribute("products", products);
         return "product/index";
     }
+
+
 
 
 }

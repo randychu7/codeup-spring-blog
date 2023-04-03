@@ -11,7 +11,19 @@
 <div th:each="post : ${all}">
     <h2 th:text="${post.title}"></h2>
     <h3 th:text="${post.body}"></h3>
+<!--    <div th:if="${ad.tags.size()>0}">-->
+<!--        <h3>Tags:</h3>-->
+<!--        <p>-->
+<!--          <span th:each="tag : ${ad.tags}">-->
+<!--              <span th:if="${tagStat.index < ad.tags.size()-1}" th:text="${tag.name} + '  -  '"></span>-->
+<!--              <span th:if="${tagStat.index == ad.tags.size()-1}" th:text="${tag.name}"></span>-->
+<!--            </span>-->
+<!--        </p>-->
+<!--    </div>-->
 </div>
+
+
+
 <nav th:replace="partials/partials :: footer"></nav>
 </body>
 </html>

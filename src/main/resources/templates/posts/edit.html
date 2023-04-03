@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--<nav th:replace="partials :: navbar"></nav>-->
+
+<h1>Edit Post</h1>
+
+<form th:action="@{/posts/{id}/edit(id=${id})}" th:method="post" th:object="${editPost}">
+<h1><span th:text="${email}"></span></h1>
+<h2><span th:text="${post.title}"></span></h2>
+<input type="text" placeholder="Change Title" th:field="*{title}">
+<p><span th:text="${post.body}"></span></p>
+<input type="text" placeholder="Change Body" th:field="*{body}" >
+  <input type="submit" />
+</form>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form th:action="@{/posts/create}" th:method="post" th:object="${newPost}">
+        <label for="title">Title of Post</label>
+        <input id= "title" th:field="*{title}" />
+        <br />
+        <label for="body">Body of Post</label>
+        <input id="body"th:field="*{body}" />
+        <br />
+<!--        <label for="tags">Add your tags with a comma:</label>-->
+<!--        <input type="text" id="tags" name="tags" />-->
+        <input type="submit" />
+    </form>
+
+
+<!--<form method="post">-->
+<!--  <h1>Make a Post!</h1>-->
+<!--  <label for="title">Title</label>-->
+<!--  <input name="title" id="title" placeholder="Put the title of the post">-->
+<!--    <label for = "body">Write your Post</label>-->
+<!--  <textarea id="body" name = "body" placeholder="Add a body to your Post"></textarea>-->
+<!--    <label for="tags">Add your tags with a comma:</label>-->
+<!--    <input id="tags" name="tags">-->
+<!--  <button>Submit</button>-->
+<!--</form>-->
+
+</body>
+</html>
