@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
     @Value("${spring.mail.from}")
         private String from;
 
+
         public void prepareAndSend(Posts post, String subject, String body) {
             SimpleMailMessage msg = new SimpleMailMessage();
             msg.setFrom(from);
