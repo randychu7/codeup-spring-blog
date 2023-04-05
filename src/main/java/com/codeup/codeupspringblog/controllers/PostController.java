@@ -1,21 +1,16 @@
 package com.codeup.codeupspringblog.controllers;
-import com.codeup.codeupspringblog.controllers.model.Posts;
-import com.codeup.codeupspringblog.controllers.model.Tag;
-import com.codeup.codeupspringblog.controllers.model.Tags;
-import com.codeup.codeupspringblog.controllers.model.User;
+import com.codeup.codeupspringblog.model.Posts;
+import com.codeup.codeupspringblog.model.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.TagRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 public class PostController {
@@ -61,9 +56,12 @@ public class PostController {
 
     @GetMapping("/posts/{id}/edit")
     public String editPost(@PathVariable long id, Model model){
-        Optional<Posts> editPost = postsDao.findById(id);
+        User newUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int CurrentUserId = newUser.getId();
 
-        if (editPost.isPresent()){
+
+        Posts editPost = postsDao.findById(id).get();
+        if (CurrentUserId == editPost.getUser().getId()){
             model.addAttribute("editPost",editPost);
             Posts posts = postsDao.findById(id).get();
             User user = posts.getUser();
@@ -78,7 +76,6 @@ public class PostController {
 
     @PostMapping("/posts/{id}/edit")
     public String changePost(@ModelAttribute Posts posts, @PathVariable long id){
-        User users = userDao.findById(1);
         //Get it post
         Posts edit = postsDao.findById(id).get();
         //Set the new values into the posts
@@ -87,7 +84,6 @@ public class PostController {
         edit.setBody(posts.getBody());
         postsDao.save(edit);
         return "redirect:/posts";
-
     }
 
     @GetMapping("/posts/create")
@@ -96,46 +92,25 @@ public class PostController {
         return "/posts/create";
     }
 
-//    @PostMapping("/posts/create")
-//    public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "tags") String tags){
-//        User users = userDao.findById(1);
-//        Set<Tag> tagSet = Tags.makeTagSet(tags);
-//        Posts newPost = new Posts(title,body, users);
-//        if(tagSet.size() > 0 ){
-//            List<Tag> tagsToAdd = new ArrayList<>();
-//            for (Tag tag : tagSet){
-//                Tag tagFromDb = tagsDao.findTagByName(tag.getName());
-//                if (tagFromDb == null){
-//                    tagsToAdd.add(tagsDao.save(tag));
-//                } else {
-//                    tagsToAdd.add(tagFromDb);
-//                }
-//            }
-//            tagSet.clear();
-//            tagSet.addAll(tagsToAdd);
-//            newPost.setTags(tagSet);
-//        }
-//        postsDao.save(newPost);
-//        return "redirect:/posts";
-//    }
+
 
 
 @PostMapping("/posts/create")
 public String createPost(@ModelAttribute Posts newPost){
-    User users = userDao.findById(1);
-    Posts post = new Posts(newPost.getTitle(), newPost.getBody(),users);
+    User newUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    int id = newUser.getId();
+    User user1 = userDao.findById(id);
+    Posts post = new Posts(newPost.getTitle(), newPost.getBody(), user1);
     String subject = "Your post has been created";
     String body = "Your post has been created: " + post.getTitle();
     emailService.prepareAndSend(post, subject, body);
     postsDao.save(post);
     return "redirect:/posts";
 }
-
-//@GetMapping("/")
-//    public String welcome(){
-//        emailService.prepareAndSend("text","this is test");
-//    System.out.println("Email Sent");
-//    return "posts/index";
-//}
+@PostMapping("/delete/{id}")
+public String deletePost(@PathVariable long id) {
+    postsDao.deleteById(id);
+    return "redirect:/posts";
+}
 
 }

@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog.controllers.model;
+package com.codeup.codeupspringblog.model;
 
 import java.util.HashSet;
 import java.util.Set;

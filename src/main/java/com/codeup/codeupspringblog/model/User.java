@@ -1,10 +1,11 @@
-package com.codeup.codeupspringblog.controllers.model;
+package com.codeup.codeupspringblog.model;
 
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
+@Table (name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +25,9 @@ public class User {
     @Column(columnDefinition = "VARCHAR(50)")
     private String email;
 
-    @Column(columnDefinition = "VARCHAR(50)")
+
     private String password;
+
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Posts> posts;
@@ -65,13 +67,36 @@ public class User {
         this.password = password;
     }
 
+    //User Constructor
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
+    public User(int id, String username, String email, String password) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(User copy) {
+        this.id = copy.id;
+        this.username = copy.username;
+        this.email = copy.email;
+        this.password = copy.password;
+    }
+
     public User(){
 
     }
+
+//    public static void main(String[] args) {
+//        User user1 = new User(1,"randy123", "1234","1234");
+//        User user2 = new User(user1);
+//    }
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog.controllers.model;
+package com.codeup.codeupspringblog.model;
 
 //When running the ‘SHOW CREATE TABLE dogs’, you should have the following schema:
 //        CREATE TABLE `dogs` (

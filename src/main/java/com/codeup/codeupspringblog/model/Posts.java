@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog.controllers.model;
+package com.codeup.codeupspringblog.model;
 
 import jakarta.persistence.*;
 
@@ -27,6 +27,8 @@ public class Posts {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags;
+
+
 
     public User getUser() {
         return user;
